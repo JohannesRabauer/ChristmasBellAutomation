@@ -161,7 +161,7 @@ namespace ChristmasBellAutomation
         private void playSound()
         {
             MediaPlayer bellSound = new MediaPlayer();
-            bellSound.Open(new Uri(@"C:\\docs\\projekte\\ChristmasBellAutomation\\ChristmasBellAutomation\\bin\\Debug\\bell.wav"));
+            bellSound.Open(new Uri(new Uri(System.Reflection.Assembly.GetExecutingAssembly().Location), @"30157__herbertboland__belllittleshake.wav"));
             //Sound from https://freesound.org/people/HerbertBoland/sounds/30157/
             bellSound.Play();
         }
