@@ -1,0 +1,87 @@
+﻿<Window x:Class="ChristmasBellAutomation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChristmasBellAutomation"
+        xmlns:localHelper="clr-namespace:ChristmasBellAutomation.Helper"
+        mc:Ignorable="d"
+        Title="Christmas bell" Height="202.425" Width="504.104">
+    <Grid Margin="0 3 0 0">
+        <Grid.Resources>
+            <localHelper:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <RadioButton Grid.Row="0" VerticalContentAlignment="Center" Margin="10 0 0 0" GroupName="CountdownType" IsChecked="{Binding Path=SelectedTimeType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:TimeType.Countdown}}" >
+            <WrapPanel>
+                <Label>Duration:</Label>
+                <TextBox HorizontalContentAlignment="Right" VerticalContentAlignment="Center"  Width="50" Text="{Binding CountdownTimeInSeconds, UpdateSourceTrigger=PropertyChanged,FallbackValue=10}" />
+                <Label Margin="0">s</Label>
+            </WrapPanel>
+        </RadioButton>
+        <RadioButton Grid.Row="1" VerticalContentAlignment="Center" Margin="10 0 0 0" GroupName="CountdownType" IsChecked="{Binding Path=SelectedTimeType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:TimeType.SpecificTime}}">
+            <WrapPanel>
+                <Label>Specific Time:</Label>
+                <TextBox HorizontalContentAlignment="Right" VerticalContentAlignment="Center"  Width="150" Text="{Binding SpecificTime, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:G}}" />
+            </WrapPanel>
+        </RadioButton>
+        <CheckBox Grid.Row="2" VerticalContentAlignment="Center" Margin="10 0 0 0" IsChecked="{Binding DoRepeat}">
+            <WrapPanel>
+                <Label >Repeat</Label>
+                <TextBox HorizontalContentAlignment="Right" VerticalContentAlignment="Center"  Text="{Binding RepeatCount, UpdateSourceTrigger=PropertyChanged,FallbackValue=10}" Width="30" >
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=DoRepeat}" Value="True">
+                                    <Setter Property="IsEnabled" Value="True" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=DoRepeat}" Value="False">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <Label>times. Interval</Label>
+                <TextBox HorizontalContentAlignment="Right" VerticalContentAlignment="Center"  Text="{Binding RepeatInterval, UpdateSourceTrigger=PropertyChanged,FallbackValue=10}" Width="30" >
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=DoRepeat}" Value="True">
+                                    <Setter Property="IsEnabled" Value="True" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=DoRepeat}" Value="False">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <Label Margin="0">s</Label>
+            </WrapPanel>
+        </CheckBox>
+        <ToggleButton Command="{Binding StartStopCommand}" Grid.Row="3" Width="100" HorizontalAlignment="Center" >
+            <ToggleButton.Style>
+                <Style TargetType="ToggleButton">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsRunning}" Value="True">
+                            <Setter Property="Content" Value="Stop" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=IsRunning}" Value="False">
+                            <Setter Property="Content" Value="Start" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ToggleButton.Style>
+        </ToggleButton>
+        <Viewbox Grid.Row="4" Stretch="Uniform">
+            <Label FontSize="60" Padding="0" Margin="0" Content="{Binding TimeLeft,FallbackValue=00:00:00}" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+        </Viewbox>
+       </Grid>
+</Window>
