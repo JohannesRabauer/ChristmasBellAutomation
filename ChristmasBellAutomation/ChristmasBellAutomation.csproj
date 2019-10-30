@@ -101,7 +101,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>xcopy "$(SolutionDir)etc\30157__herbertboland__belllittleshake.wav" "$(TargetDir)" /Y /E /D</PreBuildEvent>
+    <PreBuildEvent>xcopy "$(SolutionDir)etc\30157__herbertboland__belllittleshake.wav" "$(TargetDir)" /Y /E /D
+xcopy "$(SolutionDir)etc\174635__altfuture__wood-knocking.wav" "$(TargetDir)" /Y /E /D</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
